@@ -1,4 +1,4 @@
-// Schema fpr User
+// Schema for User
 const mongoose = require("mongoose");
 
 const UserSchema = new mongoose.Schema({
