@@ -16,6 +16,7 @@ const connectDB = async () => {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useCreateIndex: true,
+      useFindAndModify: false,
     });
     /*
     The function execution “pauses” at the line (*) 
