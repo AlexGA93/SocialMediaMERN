@@ -11,6 +11,10 @@ const bcrypt = require("bcryptjs");
 //We need a name , email and password so we need to use express validator
 const { check, validationResult } = require("express-validator");
 
+//jsonwebtoken
+const jwt = require("jsonwebtoken");
+const config = require("config");
+
 //User model
 const User = require("../../models/User");
 
@@ -66,7 +70,24 @@ router.post(
 
       //Return jsonwebtoken (JWT)
 
-      res.send("User registered");
+      const payload = {
+        user: {
+          id: user.id,
+        },
+      };
+
+      jwt.sign(
+        payload,
+        config.get("jwtSecret"),
+        {
+          expiresIn: 360000, //we want to expire in the time but we can put a big value to work easy
+        },
+        (err, token) => {
+          //callback that takes the possible error an the token itself
+          if (err) throw err; //check for errors
+          res.json({ token }); //if not errors, send token as json
+        }
+      ); //we need a jwt secret ==> default.js
     } catch (err) {
       console.error(err.message);
       res.status(500).send("Server error"); //message sent if there's an error and status responsed
