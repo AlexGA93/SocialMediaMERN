@@ -1,9 +1,8 @@
 //Bring in express Router
 const express = require("express");
 const router = express.Router();
-
 const auth = require("../../middleware/auth");
-
+const jwt = require("jsonwebtoken");
 //bcrypt
 const bcrypt = require("bcryptjs");
 //We need a name , email and password so we need to use express validator
@@ -11,6 +10,7 @@ const { check, validationResult } = require("express-validator");
 const config = require("config");
 
 const User = require("../../models/User"); //Schema
+
 //@route GET api/auth
 //@desc Test route
 //@access Public
@@ -51,12 +51,14 @@ router.post(
       let user = await User.findOne({ email }); //'await' ==> Javascript wait until that promise settles and return its result
 
       if (!user) {
-        res.status(400).json({ errors: [{ msg: "Invalid Credentials" }] });
+        return res
+          .status(400)
+          .json({ errors: [{ msg: "Invalid Credentials" }] });
       }
       //we want to be sure that passwords matches
       const isMatch = await bcrypt.compare(password, user.password); //comparing the password in the user's entry with the encrypted password
       if (!isMatch) {
-        res.status(400).json({ errors: [{ msg: "Invalid Password" }] });
+        return res.status(400).json({ errors: [{ msg: "Invalid Password" }] });
       }
 
       //Return jsonwebtoken (JWT)
@@ -79,7 +81,7 @@ router.post(
         }
       ); //we need a jwt secret ==> default.js
     } catch (err) {
-      console.error(err.message);
+      console.error("Error: " + err.message);
       res.status(500).send("Server error"); //message sent if there's an error and status responsed
     }
   }
