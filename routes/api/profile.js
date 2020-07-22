@@ -245,5 +245,85 @@ router.delete("/experience/:exp_id", auth, async (req, res) => {
   }
 });
 
+//@route PUT api/profile/education
+//@desc Add profile education
+//@access Private
+router.put(
+  "/education",
+  [
+    auth,
+    [
+      check("school", "School is required").not().isEmpty(),
+      check("degree", "Degree is required").not().isEmpty(),
+      check("fieldofstudy", "Field of Study is required").not().isEmpty(),
+      check("from", "from data is required").not().isEmpty(),
+    ],
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    const {
+      school,
+      degree,
+      fieldofstudy,
+      from,
+      to,
+      current,
+      description,
+    } = req.body;
+
+    const newEdu = {
+      school,
+      degree,
+      fieldofstudy,
+      from,
+      to,
+      current,
+      description,
+    };
+
+    try {
+      const profile = await Profile.findOne({ user: req.user.id });
+
+      profile.education.unshift(newEdu);
+
+      await profile.save();
+
+      res.json(profile);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send("Server Error");
+    }
+  }
+);
+
+//@route DELETE api/profile/education/:exp_id
+//@desc Delete educacion from profile
+//@access Private
+router.delete("/education/:edu_id", auth, async (req, res) => {
+  try {
+    const profile = await Profile.findOne({ user: req.user.id }); //json profile object found by :id
+
+    //Get remove index
+    const removeIndex = profile.education
+      .map((item) => item.id) //creates a new array with the id returned in item.id
+      .indexOf(req.params.edu_id); //returns the first index at which a given element can be found in the array, or -1 if it is not present.
+
+    //console.log(removeIndex); //-1
+
+    //changes the contents of an array by removing or replacing existing elements and/or adding new elements in place.
+    profile.education.splice(removeIndex, 1);
+    res.json(profile);
+
+    // //save changes
+    await profile.save();
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
 //exports
 module.exports = router;
