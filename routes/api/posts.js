@@ -57,17 +57,22 @@ router.put("/like/:id", auth, async (req, res) => {
     //console.log(post);
     post.likes.unshift({ user: req.user.id }); //adds new items to the beginning of an array
     await post.save();
-
+    return res.json(post.likes);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
 // @route    PUT api/posts/unlike/:id
 // @desc     Unlike a post
 // @access   Private
-router.put('/unlike/:id', [auth, checkObjectId('id')], async (req, res) => {
+router.put("/unlike/:id", auth, async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
 
     // Check if the post has not yet been liked
-    if (!post.likes.some(like => like.user.toString() === req.user.id)) {
-      return res.status(400).json({ msg: 'Post has not yet been liked' });
+    if (!post.likes.some((like) => like.user.toString() === req.user.id)) {
+      return res.status(400).json({ msg: "Post has not yet been liked" });
     }
 
     // remove the like
@@ -80,7 +85,7 @@ router.put('/unlike/:id', [auth, checkObjectId('id')], async (req, res) => {
     return res.json(post.likes);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Server Error');
+    res.status(500).send("Server Error");
   }
 });
 //@route GET api/posts
@@ -143,5 +148,6 @@ router.delete("/:id", auth, async (req, res) => {
     res.status(500).send("Server Error");
   }
 });
+
 //exports
 module.exports = router;
