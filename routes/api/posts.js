@@ -53,7 +53,7 @@ router.put("/like/:id", auth, async (req, res) => {
     ) {
       return res.status(404).json({ msg: "Post already liked" });
     }
-
+    //console.log(post);
     post.likes.unshift({ user: req.user.id }); //adds new items to the beginning of an array
     await post.save();
 
