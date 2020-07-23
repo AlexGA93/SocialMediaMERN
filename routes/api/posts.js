@@ -105,7 +105,7 @@ router.put("/like/:id", auth, async (req, res) => {
 
     //check if the post has been already liked
     if (
-      post.likes.filter((like) => like.user.toString() === req.user.id).lenght > //si la long del vector en post.likes (el cual se ha comparado su longitud con la del user logueado) es >0
+      post.likes.filter((like) => like.user.toString() === req.user.id).lenght > 
       0
     ) {
       return res.status(404).json({ msg: "Post already liked" });
@@ -134,7 +134,7 @@ router.put("/unlike/:id", auth, async (req, res) => {
     if (
       (post.likes.filter(
         (like) => like.user.toString() === req.user.id
-      ).lenght = 0) //si la long del vector en post.likes (el cual se ha comparado su longitud con la del user logueado) es = 0
+      ).lenght = 0) 
     ) {
       return res.status(404).json({ msg: "Post has not yet been liked" });
     }
