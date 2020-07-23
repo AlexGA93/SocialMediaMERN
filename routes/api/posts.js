@@ -37,6 +37,63 @@ router.post(
     }
   }
 );
+//@route PUT api/posts/like/:id
+//@desc Like a post
+//@access Private
+router.put("/like/:id", auth, async (req, res) => {
+  //technycally it's updating a post by it ID
+  try {
+    //Post model array
+    const post = await Post.findById(req.params.id);
 
+    //check if the post has been already liked
+    if (
+      post.likes.filter((like) => like.user.toString() === req.user.id).lenght > //si la long del vector en post.likes (el cual se ha comparado su longitud con la del user logueado) es >0
+      0
+    ) {
+      return res.status(404).json({ msg: "Post already liked" });
+    }
+
+    post.likes.unshift({ user: req.user.id }); //adds new items to the beginning of an array
+    await post.save();
+
+    res.json(post.likes);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
+
+//@route PUT api/posts/unlike/:id
+//@desc Like a post
+//@access Private
+router.put("/unlike/:id", auth, async (req, res) => {
+  //technycally it's updating a post by it ID
+  try {
+    //Post model array
+    const post = await Post.findById(req.params.id);
+
+    //check if the post has been already liked
+    if (
+      (post.likes.filter(
+        (like) => like.user.toString() === req.user.id
+      ).lenght = 0) //si la long del vector en post.likes (el cual se ha comparado su longitud con la del user logueado) es = 0
+    ) {
+      return res.status(404).json({ msg: "Post has not yet been liked" });
+    }
+
+    //Get remove index
+    const removeIndex = post.likes
+      .map((like) => like.user.toString())
+      .indexOf(req.user.id);
+    post.likes.splice(removeIndex, 1);
+    await post.save();
+
+    res.json(post.likes);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
 //exports
 module.exports = router;
