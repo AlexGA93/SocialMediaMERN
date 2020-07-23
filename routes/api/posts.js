@@ -38,7 +38,29 @@ router.post(
     }
   }
 );
+//@route PUT api/posts/like/:id
+//@desc Like a post
+//@access Private
+router.put("/like/:id", auth, async (req, res) => {
+  //technycally it's updating a post by it ID
+  try {
+    //Post model array
+    const post = await Post.findById(req.params.id);
 
+    //check if the post has been already liked
+    if (
+      post.likes.filter((like) => like.user.toString() === req.user.id).lenght > //si la long del vector en post.likes (el cual se ha comparado su longitud con la del user logueado) es >0
+      0
+    ) {
+      return res.status(404).json({ msg: "Post already liked" });
+    }
+    //console.log(post);
+    post.likes.unshift({ user: req.user.id }); //adds new items to the beginning of an array
+    await post.save();
+
+<<<<<<< HEAD
+    res.json(post.likes);
+=======
 //@route GET api/posts
 //@desc Get all posts
 //@access Private
@@ -47,12 +69,43 @@ router.get("/", auth, async (req, res) => {
     //Extract Posts sorted by date
     const posts = await Post.find(req.params.id).sort({ date: -1 });
     res.json(posts);
+>>>>>>> c1ac8d945945ff23557aa4f0c7b0a8903e08fa4b
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");
   }
 });
 
+<<<<<<< HEAD
+//@route PUT api/posts/unlike/:id
+//@desc Like a post
+//@access Private
+router.put("/unlike/:id", auth, async (req, res) => {
+  //technycally it's updating a post by it ID
+  try {
+    //Post model array
+    const post = await Post.findById(req.params.id);
+
+    //check if the post has been already liked
+    if (
+      (post.likes.filter(
+        (like) => like.user.toString() === req.user.id
+      ).lenght = 0) //si la long del vector en post.likes (el cual se ha comparado su longitud con la del user logueado) es = 0
+    ) {
+      return res.status(404).json({ msg: "Post has not yet been liked" });
+    }
+
+    //Get remove index
+    const removeIndex = post.likes
+      .map((like) => like.user.toString())
+      .indexOf(req.user.id);
+    post.likes.splice(removeIndex, 1);
+    await post.save();
+
+    res.json(post.likes);
+  } catch (err) {
+    console.error(err.message);
+=======
 //@route GET api/posts/:id
 //@desc Get post by ID
 //@access Private
@@ -96,6 +149,7 @@ router.delete("/:id", auth, async (req, res) => {
     if (err.kind == "ObjectId") {
       return res.status(404).json({ msg: "Post not found" });
     }
+>>>>>>> c1ac8d945945ff23557aa4f0c7b0a8903e08fa4b
     res.status(500).send("Server Error");
   }
 });
