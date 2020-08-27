@@ -8,9 +8,9 @@ export default function (state = initialSate, action) {
 
   const { type, payload } = action;
   switch (type) {
-    case "SET_ALERT":
-      return [...state, payload]; //display array data
-    case "REMOVE_ALERT":
+    case SET_ALERT:
+      return [...state, payload]; //display array data with payload
+    case REMOVE_ALERT:
       //we want to remove alert by its ID
       return state.filter((alert) => alert.id !== payload);
     default:
