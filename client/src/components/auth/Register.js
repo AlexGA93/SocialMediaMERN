@@ -1,9 +1,17 @@
 import React, { Fragment, useState } from "react";
 import { Link } from "react-router-dom";
+
+//to connect this omponent to redux
+import { connect } from "react-redux";
+import { setAlert } from "../../actions/alert";
+import { register } from "../../actions/auth";
+import PropTypes from "prop-types";
+
 /*
 In a form each input should need a component state
 */
-const Register = () => {
+const Register = ({ setAlert, register }) => {
+  //we shoud be capable to do props.setAlert
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -20,10 +28,14 @@ const Register = () => {
     e.preventDefault();
     //checking passwords
     if (password !== password2) {
-      console.log("passwords do not match!");
+      //We want to send an Alert so we need to connect this component with redux
+      setAlert("passwords do not match!", "danger"); //calling setAlert function
+
+      // console.log("passwords do not match!");
     } else {
       //console.log(formData); //If passwords match, show form state
-      console.log("SUCCESS!");
+      //
+      register({ name, email, password });
     }
   };
   return (
@@ -44,7 +56,7 @@ const Register = () => {
             name="name"
             value={name}
             onChange={(e) => onChange(e)}
-            required
+            // required
           />
         </div>
         <div className="form-group">
@@ -54,6 +66,7 @@ const Register = () => {
             name="email"
             value={email}
             onChange={(e) => onChange(e)}
+            //required
           />
           <small className="form-text">
             This site uses Gravatar so if you want a profile image, use a
@@ -65,9 +78,10 @@ const Register = () => {
             type="password"
             placeholder="Password"
             name="password"
-            minLength="6"
+            //minLength="6"
             value={password}
             onChange={(e) => onChange(e)}
+            //required
           />
         </div>
         <div className="form-group">
@@ -75,9 +89,10 @@ const Register = () => {
             type="password"
             placeholder="Confirm Password"
             name="password2"
-            minLength="6"
+            //minLength="6"
             value={password2}
             onChange={(e) => onChange(e)}
+            //required
           />
         </div>
         <input type="submit" className="btn btn-primary" value="Register" />
@@ -89,4 +104,9 @@ const Register = () => {
   );
 };
 
-export default Register;
+Register.propTypes = {
+  setAlert: PropTypes.func.isRequired,
+  register: PropTypes.func.isRequired,
+};
+
+export default connect(null, { setAlert, register })(Register);
