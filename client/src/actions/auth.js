@@ -8,6 +8,7 @@ import {
   AUTH_ERROR,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
+  LOGOUT,
 } from "./types";
 
 //We want to show an alert banner for each error
@@ -105,4 +106,9 @@ export const register = ({ name, email, password }) => async (dispatch) => {
       type: REGISTER_FAILED,
     });
   }
+};
+
+//Logut / Clear Profile
+export const logout = () => (dispatch) => {
+  dispatch({ type: LOGOUT });
 };
