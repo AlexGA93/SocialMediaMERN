@@ -5,6 +5,8 @@ import {
   REGISTER_FAILED,
   USER_LOADED,
   AUTH_ERROR,
+  LOGIN_SUCCESS,
+  LOGIN_FAIL,
 } from "../actions/types";
 
 //initial state
@@ -28,7 +30,7 @@ export default function (state = initialState, action) {
         loading: false,
         user: payload,
       };
-
+    case LOGIN_SUCCESS:
     case REGISTER_SUCCESS:
       //setting into state token
       localStorage.setItem("token", payload.token);
@@ -41,6 +43,7 @@ export default function (state = initialState, action) {
         loading: false,
       };
 
+    case LOGIN_FAIL:
     case REGISTER_FAILED:
     case AUTH_ERROR: //These ones will do the same function
       //If Registration is failed, we want to remove anything'is in the local state
