@@ -1,6 +1,11 @@
 // This reducer is going to have a lot of more than we hadin our alert reducer
 
-import { REGISTER_SUCCESS, REGISTER_FAILED } from "../actions/types";
+import {
+  REGISTER_SUCCESS,
+  REGISTER_FAILED,
+  USER_LOADED,
+  AUTH_ERROR,
+} from "../actions/types";
 
 //initial state
 const initialState = {
@@ -16,6 +21,14 @@ export default function (state = initialState, action) {
   const { type, payload } = action;
 
   switch (type) {
+    case USER_LOADED:
+      return {
+        ...state,
+        isAuthenticated: true,
+        loading: false,
+        user: payload,
+      };
+
     case REGISTER_SUCCESS:
       //setting into state token
       localStorage.setItem("token", payload.token);
@@ -28,8 +41,8 @@ export default function (state = initialState, action) {
         loading: false,
       };
 
-      break;
     case REGISTER_FAILED:
+    case AUTH_ERROR: //These ones will do the same function
       //If Registration is failed, we want to remove anything'is in the local state
       localStorage.removeItem("token");
       return {
@@ -39,7 +52,6 @@ export default function (state = initialState, action) {
         isAuthenticated: false,
         loading: false,
       };
-      break;
 
     default:
       return state;

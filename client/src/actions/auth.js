@@ -1,10 +1,37 @@
 //we need axios because this is where we make our request
 import axios from "axios";
 
-import { REGISTER_SUCCESS, REGISTER_FAILED } from "./types";
+import {
+  REGISTER_SUCCESS,
+  REGISTER_FAILED,
+  USER_LOADED,
+  AUTH_ERROR,
+} from "./types";
 
 //We want to show an alert banner for each error
 import { setAlert } from "./alert";
+import setAuthToken from "../utils/setAuthToken";
+
+//Load User
+export const loadUser = () => async (dispatch) => {
+  //check global header
+  if (localStorage.token) {
+    setAuthToken(localStorage.token);
+  }
+
+  //request
+  try {
+    const res = await axios.get("/api/auth");
+    dispatch({
+      type: USER_LOADED,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: AUTH_ERROR,
+    });
+  }
+};
 
 //Register User
 //the function will take the name, email and password as arguments
