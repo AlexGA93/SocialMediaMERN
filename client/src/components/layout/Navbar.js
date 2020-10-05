@@ -7,7 +7,7 @@ import { logout } from "../../actions/auth";
 
 const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
   //variables for guest links and auth links
-  const authLinks = (
+  const authLinks = ( //To render if we're loged in
     <ul>
       <li>
         <a onClick={logout} href="#!">
@@ -17,7 +17,7 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
       </li>
     </ul>
   );
-  const guestLinks = (
+  const guestLinks = ( //To render if we're not loged in
     <ul>
       <li>
         <a href="#!">Developers</a>
@@ -33,10 +33,10 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
 
   return (
     //any code that we want to design
-    <nav class="navbar bg-dark">
+    <nav className="navbar bg-dark">
       <h1>
         <Link to="/">
-          <i class="fas fa-code"></i> DevConnector
+          <i className="fas fa-code"></i> DevConnector
         </Link>
       </h1>
       {/* if we'r e done loading  */}
