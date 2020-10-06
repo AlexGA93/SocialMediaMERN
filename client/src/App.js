@@ -37,6 +37,7 @@ const App = () => {
             <Switch>
               <Route exact path="/register" component={Register} />
               <Route exact path="/login" component={Login} />
+              {/* We want to access only to dashboard if we're loggued or registered */}
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
             </Switch>
           </section>
