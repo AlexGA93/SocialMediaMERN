@@ -4,7 +4,7 @@ Social Media project built in M.E.R.N
 ## Install Dependencies
 In the root folder we must install the next dependencies to made work our backend 
 ```
-npm i express express-validator bcryptjs config gravatar jsonwebtoken mongoose request
+npm i express express-validator bcryptjs config gravatar jsonwebtoken mongoose request concurrently
 npm i -D nodemon
 ```
 
