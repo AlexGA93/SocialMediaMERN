@@ -1,6 +1,16 @@
 import React from "react";
-import { Link } from "react-router-dom";
-const Landing = () => {
+import { Link, Redirect } from "react-router-dom";
+
+// We need to interact wit hthe state if we're connected or not
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+
+const Landing = ({ isAuthenticated }) => {
+  //if we're authentified , redirect to dashboard
+  if (isAuthenticated) {
+    return <Redirect to="/dashboard" />;
+  }
+  //if we're not connect then show Landing page
   return (
     <section className="landing">
       <div className="dark-overlay">
@@ -23,4 +33,13 @@ const Landing = () => {
     </section>
   );
 };
-export default Landing;
+
+Landing.propTypes = {
+  isAuthenticated: PropTypes.bool,
+};
+
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps)(Landing);

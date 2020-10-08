@@ -9,6 +9,14 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
   //variables for guest links and auth links
   const authLinks = ( //To render if we're loged in
     <ul>
+      {/* We want to access to Dashboard when we're logged in */}
+      <li>
+        <Link to="/dashboard">
+          <i className="fas fa-user"></i>
+          <span className="hide-sm"> Dashboard</span>
+        </Link>
+      </li>
+      {/* //////////////////////////////////////////////////// */}
       <li>
         <a onClick={logout} href="#!">
           <i className="fas fa-sign-out-alt"></i>
