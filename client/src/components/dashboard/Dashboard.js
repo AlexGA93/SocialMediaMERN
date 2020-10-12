@@ -5,6 +5,8 @@ import { connect } from "react-redux";
 
 import { getCurrentProfile } from "../../actions/profile";
 
+import DashboardActions from './DashboardActions';
+
 //Chargin page
 import Spinner from "../layout/spinner";
 
@@ -31,7 +33,9 @@ const Dashboard = ({
       </p>
       {profile !== null ? (
         // if there is not empty profile...
-        <Fragment>has</Fragment>
+        <Fragment>
+          <DashboardActions />
+        </Fragment>
       ) : (
         //If there is empty profile...
         <Fragment>
