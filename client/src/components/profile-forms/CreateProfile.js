@@ -1,8 +1,12 @@
 import React, { Fragment, useState } from "react";
+import {Link, withRouter} from 'react-router-dom';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import {createProfile} from '../../actions/profile';
 
-const CreateProfile = (props) => {
+
+const CreateProfile = ({createProfile, history }) => {
+  //action tocreate the profile to interact with the server 
   const [formData, setFormData] = useState({
     company: "",
     website: "",
@@ -18,8 +22,10 @@ const CreateProfile = (props) => {
     instagram: "",
   });
 
+  //we want the socialmedia inputsection is toggled at first, so we assigned the first state to false
   const [displaySocialInput, toggleSocialInputs] = useState(false);
 
+  //action to interact with the front form's data
   const {
     company,
     website,
@@ -35,9 +41,17 @@ const CreateProfile = (props) => {
     instagram,
   } = formData;
 
+  //Function to interqact with the form 
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
+  const onSubmit = e => {
+    e.preventDefault();
+    createProfile(formData, history);
+  }
+
+  //Front redner
   return (
     <Fragment>
       <h1 className="large text-primary">Create Your Profile</h1>
@@ -46,7 +60,7 @@ const CreateProfile = (props) => {
         profile stand out
       </p>
       <small>* = required field</small>
-      <form className="form">
+      <form className="form" onSubmit={e => onSubmit(e)}>
         <div className="form-group">
           <select name="status" value={status} onChange={(e) => onChange(e)}>
             <option value="0">* Select Professional Status</option>
@@ -136,7 +150,7 @@ const CreateProfile = (props) => {
 
         <div className="my-2">
           <button
-            onClick={() => toggleSocialInputs(!displaySocialInput)}
+            onClick={() => toggleSocialInputs(!displaySocialInput)} //when we interact with the button, it changes the boolean state
             type="button"
             className="btn btn-light"
           >
@@ -145,6 +159,8 @@ const CreateProfile = (props) => {
           <span>Optional</span>
         </div>
 
+
+        {/* If 'displaySocialInputs its true, render html code' */}
         {displaySocialInput && (
           <Fragment>
             <div className="form-group social-input">
@@ -213,6 +229,8 @@ const CreateProfile = (props) => {
   );
 };
 
-CreateProfile.propTypes = {};
+CreateProfile.propTypes = {
+  createProfile: PropTypes.func.isRequired,
+};
 
-export default CreateProfile;
+export default connect(null, {createProfile})(withRouter(CreateProfile));
