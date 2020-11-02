@@ -1,4 +1,4 @@
-import { GET_PROFILE, PROFILE_ERROR, CLEAR_PROFILE } from "../actions/types";
+import { GET_PROFILE, PROFILE_ERROR, CLEAR_PROFILE, UPDATE_PROFILE } from "../actions/types";
 
 // we need axios to get the profile and make the request to our backend
 
@@ -22,12 +22,15 @@ export default function (state = inisitalState, action) {
   switch (type) {
     //Go to ../actions/type.js to define cases
     case GET_PROFILE:
+    case UPDATE_PROFILE:
       return {
         //current state
         ...state,
         profile: payload,
         loading: false,
       };
+      
+      
     case PROFILE_ERROR:
       return {
         ...state,
