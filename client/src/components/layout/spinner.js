@@ -1,6 +1,6 @@
 //Charging page summoning a gif
 import React, { Fragment } from "react";
-import spinner from "../../img/spinner.gif";
+import spinner from "../../img/spinnerR.gif";
 
 export default () => (
   <Fragment>

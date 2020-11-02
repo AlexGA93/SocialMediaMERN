@@ -10,6 +10,12 @@ import DashboardActions from './DashboardActions';
 //Chargin page
 import Spinner from "../layout/spinner";
 
+//Experience
+import Experience from "./Experience"
+//Education
+import Education from "./Education"
+
+
 const Dashboard = ({
   getCurrentProfile,
   auth: { user },
@@ -35,6 +41,8 @@ const Dashboard = ({
         // if there is not empty profile...
         <Fragment>
           <DashboardActions />
+          <Experience experience={profile.experience} />
+          <Education education={profile.education}  />
         </Fragment>
       ) : (
         //If there is empty profile...
