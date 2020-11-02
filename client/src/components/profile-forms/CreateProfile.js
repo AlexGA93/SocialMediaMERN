@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import {createProfile} from '../../actions/profile';
 
-
+//Very similar code as Edit Profile
 const CreateProfile = ({createProfile, history }) => {
   //action tocreate the profile to interact with the server 
   const [formData, setFormData] = useState({
@@ -46,6 +46,7 @@ const CreateProfile = ({createProfile, history }) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  // function to submit form data as 'formData'
   const onSubmit = e => {
     e.preventDefault();
     createProfile(formData, history);

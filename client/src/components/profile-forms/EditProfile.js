@@ -4,8 +4,8 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import {createProfile, getCurrentProfile} from '../../actions/profile';
 
-
-const EditProfile = ({profile:{ profile ,loading},createProfile, getCurrentProfile, history }) => {
+//we call as profile's props profile itself and loading variable, profile.js variables and history to redirect
+const EditProfile = ({profile:{ profile ,loading}, createProfile, getCurrentProfile, history }) => {
   //action tocreate the profile to interact with the server 
   const [formData, setFormData] = useState({
     company: "",
@@ -25,6 +25,7 @@ const EditProfile = ({profile:{ profile ,loading},createProfile, getCurrentProfi
   //we want the socialmedia inputsection is toggled at first, so we assigned the first state to false
   const [displaySocialInput, toggleSocialInputs] = useState(false);
 
+  //we pass form data to useEffect (Hook)
   useEffect(() => {
       getCurrentProfile();
 
