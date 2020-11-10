@@ -9,6 +9,9 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
   //variables for guest links and auth links
   const authLinks = ( //To render if we're loged in
     <ul>
+      <li>
+        <Link to="/profiles">Developers</Link>
+      </li>
       {/* We want to access to Dashboard when we're logged in */}
       <li>
         <Link to="/dashboard">
@@ -28,7 +31,9 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
   const guestLinks = ( //To render if we're not loged in
     <ul>
       <li>
-        <a href="#!">Developers</a>
+        <Link to="/profiles">
+          Developers
+        </Link>
       </li>
       <li>
         <Link to="/register">Register</Link>
