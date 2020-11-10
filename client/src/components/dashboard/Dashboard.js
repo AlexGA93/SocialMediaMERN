@@ -11,13 +11,16 @@ import DashboardActions from './DashboardActions';
 import Spinner from "../layout/spinner";
 
 //Experience
-import Experience from "./Experience"
+import Experience from "./Experience";
 //Education
-import Education from "./Education"
+import Education from "./Education";
+//delete Account
+import {deleteAccount} from '../../actions/profile';
 
 
 const Dashboard = ({
   getCurrentProfile,
+  deleteAccount,
   auth: { user },
   profile: { profile, loading },
 }) => {
@@ -43,6 +46,13 @@ const Dashboard = ({
           <DashboardActions />
           <Experience experience={profile.experience} />
           <Education education={profile.education}  />
+
+          <div className="my-2">
+            {/* Once we delete our account it should just redirect us back to the login page */}
+            <button className="btn btn-danger" onClick={() => deleteAccount()}>
+              <i className ="fas fa-user-minus"></i>Delete My Account
+            </button>
+          </div>
         </Fragment>
       ) : (
         //If there is empty profile...
@@ -59,6 +69,7 @@ const Dashboard = ({
 
 Dashboard.propTypes = {
   getCurrentProfile: PropTypes.func.isRequired,
+  deleteAccount:PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired,
 };
@@ -69,4 +80,4 @@ const mapStateToProps = (state) => ({
 });
 
 //we're going to be using the current profile actions
-export default connect(mapStateToProps, { getCurrentProfile })(Dashboard);
+export default connect(mapStateToProps, { getCurrentProfile,deleteAccount })(Dashboard);

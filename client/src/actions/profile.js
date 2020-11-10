@@ -7,7 +7,9 @@ import{setAlert} from "./alert";
 import {
     GET_PROFILE,
     PROFILE_ERROR,
-    UPDATE_PROFILE
+    UPDATE_PROFILE,
+    CLEAR_PROFILE,
+    ACCOUNT_DELETED
 } from './types';
 
 
@@ -168,3 +170,86 @@ export const addEducation = (formData, history) => async dispatch => {
         });
     }
 }
+
+//Delete Experience
+/*
+Hittind endpoint
+making a DELETE requets to profile experience
+*/
+export const deleteExperience = id => async dispatch => {
+    try {
+        //making request to backend
+        const res = await axios.delete(`/api/profile/experience/${id}`);
+
+        //update profile
+        dispatch({
+            type: UPDATE_PROFILE,
+            payload: res.data
+        });
+
+        //Putting the alert
+        dispatch(setAlert('Experience Removed','success'));
+    } catch (err) {
+        dispatch({
+            type: PROFILE_ERROR,
+            payload: {
+                msg: err.response.statusText,
+                status: err.response.status
+            }
+        });
+    }
+};
+
+//Delete Education
+/*
+Hittind endpoint
+making a DELETE requets to profile experience
+*/
+export const deleteEducation = id => async dispatch => {
+    try {
+        const res = await axios.delete(`/api/profile/education/${id}`);
+
+        //update profile
+        dispatch({
+            type: UPDATE_PROFILE,
+            payload: res.data
+        });
+
+        //Putting the alert
+        dispatch(setAlert('Education Removed','success'));
+    } catch (err) {
+        dispatch({
+            type: PROFILE_ERROR,
+            payload: {
+                msg: err.response.statusText,
+                status: err.response.status
+            }
+        });
+    }
+};
+
+//Delete Account & Profile
+export const deleteAccount = () => async dispatch => {
+    // to delete our account we want a confirmation
+    if(window.confirm('Are you sure? This cannot be undone!')) {
+        try {
+            const res = await axios.delete('api/profile');
+    
+            //update profile WITHOUT DATA
+            dispatch({type: CLEAR_PROFILE });
+            dispatch({type: ACCOUNT_DELETED });
+    
+            //Putting the alert
+            dispatch(setAlert('Your account has been permanantly removed'));
+        } catch (err) {
+            dispatch({
+                type: PROFILE_ERROR,
+                payload: {
+                    msg: err.response.statusText,
+                    status: err.response.status
+                }
+            });
+        }
+    }
+    
+};
