@@ -19,6 +19,9 @@ export const LOGOUT = "LOGOUT";
 
 //Profile
 export const GET_PROFILE = "GET_PROFILE";
+//get all profiles
+export const GET_PROFILES = "GET_PROFILES";
+
 export const PROFILE_ERROR = "PROFILE_ERROR";
 //update profile
 export const UPDATE_PROFILE = "UPDATE_PROFILE";
@@ -26,6 +29,9 @@ export const UPDATE_PROFILE = "UPDATE_PROFILE";
 export const CLEAR_PROFILE = "CLEAR_PROFILE";
 //Delete Account
 export const ACCOUNT_DELETED = "ACCOUNT_DELETED";
+
+//Repos
+export const GET_REPOS = "GET_REPOS";
 
 
 

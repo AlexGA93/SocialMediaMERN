@@ -6,6 +6,8 @@ import{setAlert} from "./alert";
 
 import {
     GET_PROFILE,
+    GET_PROFILES,
+    GET_REPOS,
     PROFILE_ERROR,
     UPDATE_PROFILE,
     CLEAR_PROFILE,
@@ -35,6 +37,83 @@ export const getCurrentProfile =() => async dispatch => {
         });
     }
 }
+
+// Get all Profiles
+export const getProfiles =() => async dispatch => {
+    /*
+    When we move to profile list page i want to clear whatever is in the current profile
+    */
+    dispatch({type: CLEAR_PROFILE});
+    try {
+        //request
+        const res = await axios.get('/api/profile');
+
+        //dispatch action
+        dispatch({
+            type: GET_PROFILES,
+            payload: res.data
+        });
+        
+    } catch (err) {
+        dispatch({
+            type: PROFILE_ERROR,
+            payload: {
+                msg: err.response.statusText,
+                status: err.response.status
+            }
+        });
+    }
+}
+
+// Get profile by ID
+// Get all Profiles
+export const getProfileById =(userId) => async dispatch => {
+   
+    try {
+        //request
+        const res = await axios.get(`/api/profile/${userId}`);
+
+        //dispatch action
+        dispatch({
+            type: GET_PROFILE,
+            payload: res.data
+        });
+        
+    } catch (err) {
+        dispatch({
+            type: PROFILE_ERROR,
+            payload: {
+                msg: err.response.statusText,
+                status: err.response.status
+            }
+        });
+    }
+};
+// Get Github repos
+export const getGithubRepos =(username) => async dispatch => {
+    
+    try {
+        //request
+        const res = await axios.get(`/api/profile/github/${username}`);
+
+        //dispatch action
+        dispatch({
+            type: GET_REPOS,
+            payload: res.data
+        });
+        
+    } catch (err) {
+        dispatch({
+            type: PROFILE_ERROR,
+            payload: {
+                msg: err.response.statusText,
+                status: err.response.status
+            }
+        });
+    }
+}
+
+
 
 //Create or Update a Profile
 /**We'll use the 'history' object wich has a method called 'push' that will redirect us to a client side route 

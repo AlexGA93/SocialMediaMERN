@@ -1,4 +1,11 @@
-import { GET_PROFILE, PROFILE_ERROR, CLEAR_PROFILE, UPDATE_PROFILE } from "../actions/types";
+import { 
+  GET_PROFILE, 
+  PROFILE_ERROR, 
+  CLEAR_PROFILE, 
+  UPDATE_PROFILE, 
+  GET_PROFILES,
+  GET_REPOS 
+} from "../actions/types";
 
 // we need axios to get the profile and make the request to our backend
 
@@ -30,7 +37,13 @@ export default function (state = inisitalState, action) {
         loading: false,
       };
       
-      
+    case GET_PROFILES:
+      return {
+        // i want to fill the initialState[] array with the profile from the server
+        ...state,//curent state
+        profiles: payload,
+        loadingl: false
+      }
     case PROFILE_ERROR:
       return {
         ...state,
@@ -43,6 +56,12 @@ export default function (state = inisitalState, action) {
         profile: null,
         repos: [],
         loading: false,
+      };
+    case GET_REPOS:
+      return {
+        ...state,
+        repos: payload,
+        loading:false
       };
     default:
       return state;
