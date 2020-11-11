@@ -27,7 +27,7 @@ const Dashboard = ({
   //using a hook as useEffect we can call current profile as soon as this loads
   useEffect(() => {
     getCurrentProfile();
-  }, []);
+  }, [getCurrentProfile]);
 
   //if profile and loading are null
   return loading && profile === null ? (
