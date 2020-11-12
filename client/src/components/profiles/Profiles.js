@@ -1,4 +1,5 @@
 import React,{Fragment, useEffect} from 'react';
+//useEffect() is a hook that let you use state and other React features without writing a class.
 import PropTypes from 'prop-types';
 import {connect} from "react-redux";
 import Spinner from "../layout/spinner";
@@ -7,9 +8,10 @@ import ProfileItem from "./ProfileItem";
 
 const Profiles = ({getProfiles, profile:{profiles,loading}}) => {
     
+    // Similar to componentDidMount and componentDidUpdate:
     useEffect(()=>{
         getProfiles();
-    }, [getProfiles]);
+    }, [getProfiles]); //We've to add [getProfile] as dependency
     return(
 
         <Fragment>
@@ -24,17 +26,21 @@ const Profiles = ({getProfiles, profile:{profiles,loading}}) => {
                         profiles.map(profile => (
                             <ProfileItem key={profile._id} profile={profile} />
                         ))
-                    ) : (<h4> No profiles found...</h4>)}
+                    ) : (
+                    <h4> No profiles found...</h4>
+                    )
+                    }
                 </div>
-                </Fragment>}
+                </Fragment>
+            }
         </Fragment>
-    )
-}
+    );
+};
 
 Profiles.propTypes = {
     getProfiles:PropTypes.func.isRequired,
     profile:PropTypes.object.isRequired,
-}
+};
 const mapStateToProps = state => ({
     profile: state.profile
 });

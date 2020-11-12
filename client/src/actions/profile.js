@@ -66,12 +66,12 @@ export const getProfiles =() => async dispatch => {
 }
 
 // Get profile by ID
-// Get all Profiles
-export const getProfileById =(userId) => async dispatch => {
+export const getProfileById =(userId) => async (dispatch) => {
+    //console.log(userId);
    
     try {
         //request
-        const res = await axios.get(`/api/profile/${userId}`);
+        const res = await axios.get(`/api/profile/user/${userId}`);
 
         //dispatch action
         dispatch({
@@ -80,6 +80,7 @@ export const getProfileById =(userId) => async dispatch => {
         });
         
     } catch (err) {
+        
         dispatch({
             type: PROFILE_ERROR,
             payload: {
