@@ -13,6 +13,7 @@ import CreateProfile from "./components/profile-forms/CreateProfile";
 import EditProfile from "./components/profile-forms/EditProfile";
 import AddExperience from "./components/profile-forms/AddExperience";
 import AddEducation from "./components/profile-forms/AddEducation";
+import Profile from "./components/profile/Profile";
 import Profiles from "./components/profiles/Profiles";
 
 import { loadUser } from "./actions/auth";
@@ -43,6 +44,7 @@ const App = () => {
               <Route exact path="/register" component={Register} />
               <Route exact path="/login" component={Login} />
               <Route exact path="/profiles" component={Profiles} />
+              <Route exact path="/profile/:id" component={Profile} />
               {/* We want to access only to dashboard if we're loggued or registered */}
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
               {/* We want to access only to dashboard if we're loggued or registered */}
