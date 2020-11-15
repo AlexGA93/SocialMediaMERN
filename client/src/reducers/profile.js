@@ -44,6 +44,7 @@ export default function (state = inisitalState, action) {
         profiles: payload,
         loadingl: false
       }
+      
     case PROFILE_ERROR:
       return {
         ...state,
