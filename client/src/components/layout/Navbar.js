@@ -12,6 +12,9 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
       <li>
         <Link to="/profiles">Developers</Link>
       </li>
+      <li>
+        <Link to="/posts">Posts</Link>
+      </li>
       {/* We want to access to Dashboard when we're logged in */}
       <li>
         <Link to="/dashboard">
