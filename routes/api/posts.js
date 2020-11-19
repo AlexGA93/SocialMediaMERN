@@ -26,12 +26,14 @@ router.post(
 
       const newPost = new Post({
         text: req.body.text,
-        name: req.body.name,
-        avatar: req.body.avatar,
-        user: req.body.user,
+        // To add user name and avatar info to post  
+        name: user.name, 
+        avatar: user.avatar,
+        user: req.user.id,
       });
       const post = await newPost.save();
       res.json(post);
+      //console.log(post);
     } catch (err) {
       console.error(err.message);
       res.status(500).send("Server Error");
@@ -96,6 +98,7 @@ router.get("/", auth, async (req, res) => {
     //Extract Posts sorted by date
     const posts = await Post.find(req.params.id).sort({ date: -1 });
     res.json(posts);
+    //console.log(req.params.avatar);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");
