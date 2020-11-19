@@ -18,7 +18,7 @@ const Posts = ({getPosts, post:{posts, loading}}) => {
             <p classNamee="lead">
                 <i className="fas fa-user"></i>Welcome to the comunity
             </p>
-            {/* Post Form */}
+            {/* Post Item */}
             <div className="posts">
                 {posts.map(post => (
                     <PostItem key={post._id} post={post} />
