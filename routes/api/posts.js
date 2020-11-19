@@ -170,9 +170,9 @@ router.post(
       const post = await Post.findById(req.params.id);
       const newComment = {
         text: req.body.text,
-        name: req.body.name,
-        avatar: req.body.avatar,
-        user: req.body.user,
+        name: user.name,
+        avatar: user.avatar,
+        user: req.user.id
       };
 
       post.comments.unshift(newComment);
