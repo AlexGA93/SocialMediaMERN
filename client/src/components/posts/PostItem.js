@@ -5,7 +5,18 @@ import Moment from 'react-moment';
 import {connect} from 'react-redux';
 
 
-const PostItem = ({auth, post:{_id, text, name, avatar,user, likes, comments,date}}
+const PostItem = ({
+  auth, 
+  post:{
+    _id, 
+    text, 
+    name, 
+    avatar,
+    user, 
+    likes, 
+    comments,
+    date
+  }}
     ) => (<div class="post bg-white p-1 my-1">
           <div>
             <a href="profile.html">
