@@ -1,6 +1,7 @@
 import {
     GET_POSTS,
-    POST_ERROR
+    POST_ERROR,
+    UPDATE_LIKES
 } from '../actions/types';
 
 
@@ -27,7 +28,18 @@ export default function(state= initialState, action) {
                 ...state,
                 error: payload,
                 loading: false
+            };
+        case UPDATE_LIKES:
+            return{
+                ...state,
+                posts: state.posts.map(
+                    // If the post.id and the payload's id matches, i only want to manipulate the individual post so i called it 
+                    // if not matches just send the regular post 
+                    post => post._id === payload.id ? {...post, likes: payload.likes} : post
+                ),
+                loading: false
             }
+            
         default:
             return state;
     }
