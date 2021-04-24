@@ -1,5 +1,5 @@
 {
-  "mongoURI": "mongodb+srv://Alex:CpLaUsSsT9E3R@devconnector.evitk.mongodb.net/test?retryWrites=true&w=majority",
+  "mongoURI": "mongodb+srv://clustername:clusterpassword@devconnector.evitk.mongodb.net/test?retryWrites=true&w=majority",
   "jwtSecret": "mysecrettoken",
   "githubClientId": "892dc1a577cf3f8ea5a9",
   "githubSecret": "59cf11c5c4b53d9abed110ca6015bcd17c36c8b3"
