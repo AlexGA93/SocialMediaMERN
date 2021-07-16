@@ -20,7 +20,7 @@ const initialState = {
 };
 
 //export function
-export default function (state = initialState, action) {
+const auth = (state = initialState, action) =>{
   //action
   const { type, payload } = action;
 
@@ -65,3 +65,6 @@ export default function (state = initialState, action) {
       return state;
   }
 }
+
+
+export default auth;

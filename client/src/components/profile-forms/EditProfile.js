@@ -43,7 +43,18 @@ const EditProfile = ({profile:{ profile ,loading}, createProfile, getCurrentProf
           youtube : loading || !profile.social ? '' : profile.social.youtube,
           instagram : loading || !profile.social ? '' : profile.social.instagram,
       });
-  }, [loading, getCurrentProfile])
+  }, [
+    getCurrentProfile,
+    loading,
+    profile.bio,
+    profile.company,
+    profile.githubusername,
+    profile.location,
+    profile.skills,
+    profile.social,
+    profile.status,
+    profile.website
+  ])
 
   //action to interact with the front form's data
   const {

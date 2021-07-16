@@ -2,7 +2,7 @@
 import React, { Fragment } from "react";
 import spinner from "../../img/spinnerR.gif";
 
-export default () => (
+const spinner_func = () => (
   <Fragment>
     <img
       src={spinner}
@@ -11,3 +11,5 @@ export default () => (
     />
   </Fragment>
 );
+
+export default spinner_func;

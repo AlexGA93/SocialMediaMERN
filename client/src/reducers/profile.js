@@ -21,7 +21,7 @@ const inisitalState = {
 };
 
 //function to export
-export default function (state = inisitalState, action) {
+const profile = (state = inisitalState, action) => {
   //action structure
   const { type, payload } = action;
 
@@ -68,3 +68,4 @@ export default function (state = inisitalState, action) {
       return state;
   }
 }
+export default profile;

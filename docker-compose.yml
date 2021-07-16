@@ -1,0 +1,28 @@
+version: "3"
+services:
+    api-client:
+        image: api-client
+        stdin_open: true
+        ports:
+            - "3000:3000"
+    api-server:
+        image: api-server
+        container_name: api-server-container
+        restart: always
+        ports:
+            - "5000:5000"
+        depends_on: 
+            - mongo
+    mongo:
+        container_name: mongo-container
+        image: mongo
+        volumes:
+            - mongo-data:/data/db
+        ports:
+            - "27017:27017"
+        logging:
+            driver: 
+                none
+volumes:
+    mongo-data:
+        driver: local

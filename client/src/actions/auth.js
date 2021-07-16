@@ -31,6 +31,7 @@ export const loadUser = () => async (dispatch) => {
       payload: res.data,
     });
   } catch (err) {
+    console.log('SOMETHINF WENT WRONG!!!');
     dispatch({
       type: AUTH_ERROR,
     });

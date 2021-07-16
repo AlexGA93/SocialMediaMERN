@@ -1,11 +1,8 @@
 const express = require("express");
-//connecting server to MongoDB
-const connectDB = require("./config/db");
-
 const app = express();
-
+require('dotenv').config()
 //Connect database
-connectDB();
+require('./config/db');
 
 //Init Midlleware
 app.use(
@@ -13,6 +10,7 @@ app.use(
     extended: false,
   })
 );
+
 
 app.get("/", (req, res) => res.send("API Running"));
 //Define routes
@@ -22,5 +20,5 @@ app.use("/api/profile", require("./routes/api/profile"));
 app.use("/api/posts", require("./routes/api/posts"));
 
 const PORT = process.env.PORT || 5000;
-
+console.log(process.env.PORT+"***********************************8");
 app.listen(PORT, () => console.log(`Server Started on port ${PORT}`));

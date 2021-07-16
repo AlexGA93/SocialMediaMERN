@@ -2,7 +2,7 @@
 import { SET_ALERT, REMOVE_ALERT } from "../actions/types";
 const initialSate = [];
 
-export default function (state = initialSate, action) {
+const alert =(state = initialSate, action) => {
   //action contains two things: type and payload with data
   //we need to evaluate the type
 
@@ -17,3 +17,6 @@ export default function (state = initialSate, action) {
       return state;
   }
 }
+
+
+export default alert;

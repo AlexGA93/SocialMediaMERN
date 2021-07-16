@@ -12,7 +12,7 @@ const Post = ({getPost, post:{post, loading }, match}) => {
     // hook
     useEffect(() => {
         getPost(match.params.id);
-    },[getPost]);
+    },[getPost, match.params.id]);
     // We 're gonna reuse post item component used in PostItem.js using showActions
     return loading || post === null ? <Spinner /> : <Fragment>
         <Link to='/posts' className = 'btn'>
